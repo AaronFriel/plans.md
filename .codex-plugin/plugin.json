@@ -1,0 +1,28 @@
+{
+  "name": "plans-md",
+  "version": "0.1.1",
+  "description": "Plans.md helps Codex organize substantial work with concrete plan.md and record.md files.",
+  "author": {
+    "name": "Aaron Friel"
+  },
+  "keywords": [
+    "plans",
+    "planning",
+    "codex",
+    "skill"
+  ],
+  "skills": "./skills",
+  "interface": {
+    "displayName": "PLANS.md",
+    "shortDescription": "Create concrete plan.md and record.md files",
+    "longDescription": "Use PLANS.md to organize substantial coding, research, design, debugging, and review work with durable plan.md and record.md files written in specific, skimmable prose.",
+    "developerName": "Friel",
+    "category": "productivity",
+    "capabilities": [
+      "Planning",
+      "Project coordination",
+      "Multi-agent coordination"
+    ],
+    "defaultPrompt": "Use PLANS.md to create or update plan.md and record.md for this task."
+  }
+}
