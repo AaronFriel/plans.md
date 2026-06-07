@@ -55,6 +55,17 @@ Use `record.md` as a plan-defined scratchpad, not as a mandatory ledger.
 
 If substantial work starts before a record entry exists, pause and write the intent down first. The record is the write-ahead note that makes later claims auditable.
 
+## Migration From ExecPlan Or AutoPlan
+
+When upgrading older `execplan` or `autoplan` files into Plans.md, preserve the useful intent and evidence while adopting the simpler names used here.
+
+- Convert an old root AutoPlan into a root `plans.md` when it coordinates several child plan folders.
+- Convert old workstreams into child plan folders with `plan.md` and, when useful, `record.md`.
+- Convert "loop ledgers", "ledgers", and similar history files into `record.md` or `records.md`.
+- Keep the implementation-heavy structure from `PLANS.md` when a child plan needs step-by-step implementation detail, but do not preserve `execplan` as a separate naming system unless the repository already depends on it.
+- Let the new root `plans.md` define the folder naming convention. Prefer readable names that make priority, date, and lineage clear, rather than carrying forward old labels that no longer explain the work.
+- If an old plan is superseded by the new layout, edit the old file or its replacement note so a reader can find the new `plan.md` without reading chat.
+
 ## Subagents
 
 Use subagents when they reduce wall-clock time, add independent judgment, or let several child plans advance at once.
@@ -89,6 +100,17 @@ Write specific prose:
 - Do not invent labels that sound formal unless the plan defines exactly what file, command, agent, artifact, or decision the label names.
 
 If a term appears repeatedly in several meanings, rename the references. Use `plan.md`, `record.md`, child folder names, agent names, commit hashes, command names, and artifact paths.
+
+## Before Commit Or Pull Request
+
+Before preparing a final commit, merge, or pull request, treat plan files as repository content that another person may read later.
+
+- Do not leave active or half-finished plan files in the proposed merged state unless the user explicitly wants to preserve incomplete work. In normal cases, the merged repository should contain plans that are either not started and belong in `backlog/`, or completed and summarized.
+- If work is incomplete, either finish it, move it to `backlog/` with the remaining scope made explicit, or leave it out of the merge. Merging incomplete work without recording that state is a code smell.
+- Completed plans should state the outcome, the acceptance evidence, important decisions, and any follow-up that remains outside the completed scope.
+- Condense `record.md` and `records.md` before merge. Keep the key insights, observations, commands, commits, artifacts, and evidence that explain the outcome.
+- Remove or summarize low-value scratch notes, repeated command output, stale hypotheses, and failed attempts that no longer help a future reader understand the result.
+- Keep detailed experimental records only when the detail is itself valuable, such as when reproducing a benchmark, audit, scientific probe, or optimization decision requires the full trail.
 
 ## Continue
 

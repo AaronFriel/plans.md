@@ -1,6 +1,6 @@
 {
   "name": "plans-md",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Plans.md helps Codex organize substantial work with concrete plan.md and record.md files.",
   "author": {
     "name": "Aaron Friel"
@@ -12,6 +12,7 @@
     "skill"
   ],
   "skills": "./skills",
+  "license": "BSD-3-Clause",
   "interface": {
     "displayName": "PLANS.md",
     "shortDescription": "Create concrete plan.md and record.md files",
