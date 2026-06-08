@@ -1,4 +1,0 @@
-interface:
-  display_name: "Plans.md"
-  short_description: "Create concrete plan.md and record.md files"
-  default_prompt: "Use $plans-md to create or update plan.md and record.md for this task."
