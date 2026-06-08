@@ -42,6 +42,7 @@ Do not create a separate record file just because the skill says so. Create it w
 10. Choose names that sort in the order the user cares about. For active and backlog plans, priority then date is often useful, such as `P0-2026-06-01-parser-rewrite`. For completed plans, date then priority is often useful, such as `2026-06-01-P0-parser-rewrite`.
 11. Add a `## Plan Layout` section to the root `plans.md` when the plan is split across files. It should name the files or filename patterns, including any `records.md`, child `plan.md`, child `record.md`, and associated files.
 12. Define the `record.md` or `records.md` format inside the plan. The record format should fit the work, not a generic template.
+13. When setting up Plans.md in a repository, ask where planning information should live. Some projects want plans and records committed in the repository. Others use issues, project trackers, docs, wikis, lab notebooks, or experiment systems. Prefer one source of truth. If more than one system is used, the root `plans.md` should say what belongs in each place and how entries link to commits, pull requests, issues, or external documents.
 
 ## Record Formats
 
@@ -54,6 +55,17 @@ Use `record.md` as a plan-defined scratchpad, not as a mandatory ledger.
 - For research, record sources, claims, confidence, contradictions, and unresolved questions.
 
 If substantial work starts before a record entry exists, pause and write the intent down first. The record is the write-ahead note that makes later claims auditable.
+
+## Migration From ExecPlan Or AutoPlan
+
+When upgrading older `execplan` or `autoplan` files into Plans.md, preserve the useful intent and evidence while adopting the simpler names used here.
+
+- Convert an old root AutoPlan into a root `plans.md` when it coordinates several child plan folders.
+- Convert old workstreams into child plan folders with `plan.md` and, when useful, `record.md`.
+- Convert "loop ledgers", "ledgers", and similar history files into `record.md` or `records.md`.
+- Keep the implementation-heavy structure from `PLANS.md` when a child plan needs step-by-step implementation detail, but do not preserve `execplan` as a separate naming system unless the repository already depends on it.
+- Let the new root `plans.md` define the folder naming convention. Prefer readable names that make priority, date, and lineage clear, rather than carrying forward old labels that no longer explain the work.
+- If an old plan is superseded by the new layout, edit the old file or its replacement note so a reader can find the new `plan.md` without reading chat.
 
 ## Subagents
 
@@ -89,6 +101,18 @@ Write specific prose:
 - Do not invent labels that sound formal unless the plan defines exactly what file, command, agent, artifact, or decision the label names.
 
 If a term appears repeatedly in several meanings, rename the references. Use `plan.md`, `record.md`, child folder names, agent names, commit hashes, command names, and artifact paths.
+
+## Before Work Reaches The Trunk Branch
+
+Before work is merged, rebased, squashed, or pushed directly to the repository's main line, review the final diff.
+
+Plans and records that remain in the repository should help a future reader understand what changed, why it changed, what evidence supports it, and what remains to do. Avoid leaving frequently edited notes, scratch files, large command transcripts, temporary experiment data, or generated comparison files in the trunk branch unless the project intentionally keeps that information in source control.
+
+The right cleanup point depends on the project's workflow. If the project uses squash merges, it may be reasonable to keep detailed records during the branch and then add a cleanup commit before opening or finalizing the pull request. That cleanup should summarize records, move completed plans to the completed location, and remove scratch data that should not become part of the final diff.
+
+If the project uses merge commits, rebases, or direct pushes to the trunk branch, the plan should say upfront how record files and scratch data are handled. Options include committing compact records only, adding scratch paths to `.gitignore`, storing records outside the repository, linking to issues or external documents, or keeping detailed files only when the project explicitly wants them.
+
+When setting up Plans.md in a repository, ask the user which workflow applies and record the answer in the root plan.
 
 ## Continue
 
