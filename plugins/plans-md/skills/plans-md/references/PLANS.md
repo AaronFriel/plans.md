@@ -76,6 +76,10 @@ The root plan chooses the naming convention. Dates, priority labels, and short d
 
 Prefer `backlog/`, `active/`, and `completed/` folders when there are enough child plans to need grouping. The root plan should define what each folder means for the repository and how plans move between them.
 
+The root plan should also say where planning information lives. If the repository uses issues, project trackers, docs, wikis, lab notebooks, or experiment systems, name those systems and explain what belongs there instead of in repository files. If plans or records are committed, say which files are intended to reach the trunk branch and which files are temporary or ignored.
+
+The root plan should record the project's merge workflow: squash merge, rebase, merge commit, direct pushes to the trunk branch, or another process. This matters because it determines when records, scratch files, generated comparison files, and temporary experiment data should be summarized, ignored, moved elsewhere, or removed.
+
 Example:
 
     docs/plans/
@@ -116,6 +120,19 @@ When work is delegated to several agents, people, devboxes, branches, worktrees,
 Preserve parallel child-plan structure when it exists. If several active child plans can move independently, the root `plans.md` should keep that fact visible. If one child plan blocks another, record the dependency in the affected plans.
 
 If a new user request would change focus while active child plans are unfinished, the plan files should record how those plans were handled: continued, paused, moved to backlog, completed, delegated elsewhere, or intentionally abandoned. The goal is to avoid silent unfinished work.
+
+## Before Work Reaches The Trunk Branch
+
+Records are living support material while work is happening. Before work reaches the trunk branch, review whether each record still belongs in the repository.
+
+Plans and records that remain in the repository should help a future reader understand what changed, why it changed, what evidence supports it, and what remains to do. Avoid leaving frequently edited notes, scratch files, large command transcripts, temporary experiment data, or generated comparison files in the trunk branch unless the project intentionally keeps that information in source control.
+
+The cleanup point depends on the repository's workflow:
+
+- If the project uses squash merges, detailed records may live on the branch during work. Before opening or finalizing the pull request, add a cleanup commit that summarizes records, moves completed plans to the completed location, and removes scratch data that should not appear in the final diff.
+- If the project uses merge commits, rebases, or direct pushes to the trunk branch, decide before work starts how record files and scratch data are handled. The plan should say whether they are committed in compact form, added to `.gitignore`, stored outside the repository, linked from issues or external documents, or kept in detail because the project explicitly wants them.
+
+When creating or updating a root `plans.md`, include this repository-specific policy in `Plan Layout` or another clearly named section. Do not leave future contributors to infer it from chat.
 
 ## Records And Preregistration
 

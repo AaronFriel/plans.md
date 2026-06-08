@@ -42,6 +42,7 @@ Do not create a separate record file just because the skill says so. Create it w
 10. Choose names that sort in the order the user cares about. For active and backlog plans, priority then date is often useful, such as `P0-2026-06-01-parser-rewrite`. For completed plans, date then priority is often useful, such as `2026-06-01-P0-parser-rewrite`.
 11. Add a `## Plan Layout` section to the root `plans.md` when the plan is split across files. It should name the files or filename patterns, including any `records.md`, child `plan.md`, child `record.md`, and associated files.
 12. Define the `record.md` or `records.md` format inside the plan. The record format should fit the work, not a generic template.
+13. When setting up Plans.md in a repository, ask where planning information should live. Some projects want plans and records committed in the repository. Others use issues, project trackers, docs, wikis, lab notebooks, or experiment systems. Prefer one source of truth. If more than one system is used, the root `plans.md` should say what belongs in each place and how entries link to commits, pull requests, issues, or external documents.
 
 ## Record Formats
 
@@ -101,16 +102,17 @@ Write specific prose:
 
 If a term appears repeatedly in several meanings, rename the references. Use `plan.md`, `record.md`, child folder names, agent names, commit hashes, command names, and artifact paths.
 
-## Before Commit Or Pull Request
+## Before Work Reaches The Trunk Branch
 
-Before preparing a final commit, merge, or pull request, treat plan files as repository content that another person may read later.
+Before work is merged, rebased, squashed, or pushed directly to the repository's main line, review the final diff.
 
-- Do not leave active or half-finished plan files in the proposed merged state unless the user explicitly wants to preserve incomplete work. In normal cases, the merged repository should contain plans that are either not started and belong in `backlog/`, or completed and summarized.
-- If work is incomplete, either finish it, move it to `backlog/` with the remaining scope made explicit, or leave it out of the merge. Merging incomplete work without recording that state is a code smell.
-- Completed plans should state the outcome, the acceptance evidence, important decisions, and any follow-up that remains outside the completed scope.
-- Condense `record.md` and `records.md` before merge. Keep the key insights, observations, commands, commits, artifacts, and evidence that explain the outcome.
-- Remove or summarize low-value scratch notes, repeated command output, stale hypotheses, and failed attempts that no longer help a future reader understand the result.
-- Keep detailed experimental records only when the detail is itself valuable, such as when reproducing a benchmark, audit, scientific probe, or optimization decision requires the full trail.
+Plans and records that remain in the repository should help a future reader understand what changed, why it changed, what evidence supports it, and what remains to do. Avoid leaving frequently edited notes, scratch files, large command transcripts, temporary experiment data, or generated comparison files in the trunk branch unless the project intentionally keeps that information in source control.
+
+The right cleanup point depends on the project's workflow. If the project uses squash merges, it may be reasonable to keep detailed records during the branch and then add a cleanup commit before opening or finalizing the pull request. That cleanup should summarize records, move completed plans to the completed location, and remove scratch data that should not become part of the final diff.
+
+If the project uses merge commits, rebases, or direct pushes to the trunk branch, the plan should say upfront how record files and scratch data are handled. Options include committing compact records only, adding scratch paths to `.gitignore`, storing records outside the repository, linking to issues or external documents, or keeping detailed files only when the project explicitly wants them.
+
+When setting up Plans.md in a repository, ask the user which workflow applies and record the answer in the root plan.
 
 ## Continue
 
