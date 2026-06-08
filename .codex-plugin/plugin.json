@@ -16,7 +16,7 @@
   "interface": {
     "displayName": "PLANS.md",
     "shortDescription": "Create concrete plan.md and record.md files",
-    "longDescription": "Use PLANS.md to organize substantial coding, research, design, debugging, and review work with durable plan.md and record.md files written in specific, skimmable prose.",
+    "longDescription": "Use PLANS.md to organize substantial coding, research, design, debugging, and review work with plan.md and record.md files written in specific, skimmable prose.",
     "developerName": "Friel",
     "category": "productivity",
     "capabilities": [
