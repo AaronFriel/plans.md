@@ -31,18 +31,19 @@ Do not create a separate record file just because the skill says so. Create it w
 2. If the repo has its own `PLANS.md`, follow it. Otherwise use `references/PLANS.md`.
 3. Search for existing related plans before creating a new one. Extend an existing plan when it covers the same work. If several plans could apply, choose one and record why in that plan's `Decision Log`.
 4. For work likely to span many turns, delegated work, or more than an hour, use the current Codex goal supervisor according to platform instructions. Create or update the plan files first, then make the goal instruction point at those files. The goal should say something like "complete `<plan path>`" and name any relevant `plans.md`, `plan.md`, `records.md`, or `record.md` paths so future supervision checks the files, not just chat.
-5. For higher-level harness features such as `/loop`, goals, monitors, or other durable supervision instructions, keep the mutable plan in files and keep the harness instruction short. Do not paste the whole plan into the goal or loop instruction. Those instructions are often less mutable than files, and duplicating the plan there can create split-brain instructions when the agent later updates `plan.md` but the old goal text still says something else.
-6. Choose the smallest durable structure that fits the task:
+5. For higher-level harness features such as `/loop`, goals, monitors, or other supervision instructions, keep the mutable plan in files and keep the harness instruction short. Do not paste the whole plan into the goal or loop instruction. Those instructions are often less mutable than files, and duplicating the plan there can create split-brain instructions when the agent later updates `plan.md` but the old goal text still says something else.
+6. When a harness goal, loop, issue, or tracker item names a plan, do not mark that harness item complete until the associated plan is also in its completed state. If the work is finished but the plan still lives under `active/`, or an external tracker still says active, the remaining task is to update the plan state, summarize the outcome, and then complete the harness item.
+7. Choose the smallest durable structure that fits the task:
    - One task: `plan.md`.
    - One substantial task: `plan.md` and `record.md`.
    - Several independent tasks: root `plans.md`, root `records.md` if useful, and one child folder per named part.
-7. Write plans for a casual observer who is skimming. The reader should understand the current state from headings and first sentences.
-8. Let the root `plans.md` choose the naming convention for child plan folders. Dates, priority labels, and short descriptive names are often useful because they make order and lineage visible, but the skill must not enforce one global convention.
-9. For several child plans, prefer `backlog/`, `active/`, and `completed/` folders unless the repository already has a clearer convention.
-10. Choose names that sort in the order the user cares about. For active and backlog plans, priority then date is often useful, such as `P0-2026-06-01-parser-rewrite`. For completed plans, date then priority is often useful, such as `2026-06-01-P0-parser-rewrite`.
-11. Add a `## Plan Layout` section to the root `plans.md` when the plan is split across files. It should name the files or filename patterns, including any `records.md`, child `plan.md`, child `record.md`, and associated files.
-12. Define the `record.md` or `records.md` format inside the plan. The record format should fit the work, not a generic template.
-13. When setting up Plans.md in a repository, ask where planning information should live. Some projects want plans and records committed in the repository. Others use issues, project trackers, docs, wikis, lab notebooks, or experiment systems. Prefer one source of truth. If more than one system is used, the root `plans.md` should say what belongs in each place and how entries link to commits, pull requests, issues, or external documents.
+8. Write plans for a casual observer who is skimming. The reader should understand the current state from headings and first sentences.
+9. Let the root `plans.md` choose the naming convention for child plan folders. Dates, priority labels, and short descriptive names are often useful because they make order and lineage visible, but the skill must not enforce one global convention.
+10. For several child plans, prefer `backlog/`, `active/`, and `completed/` folders unless the repository already has a clearer convention. The layout should make state changes cheap: usually one `mv`, one tracker status update, or one clearly named status edit. Avoid layouts where completing a plan requires updating several independent sources of truth.
+11. Choose names that sort in the order the user cares about. For active and backlog plans, priority then date is often useful, such as `P0-2026-06-01-parser-rewrite`. For completed plans, date then priority is often useful, such as `2026-06-01-P0-parser-rewrite`.
+12. Add a `## Plan Layout` section to the root `plans.md` when the plan is split across files. It should name the files or filename patterns, including any `records.md`, child `plan.md`, child `record.md`, and associated files.
+13. Define the `record.md` or `records.md` format inside the plan. The record format should fit the work, not a generic template.
+14. When setting up Plans.md in a repository, ask where planning information should live. Some projects want plans and records committed in the repository. Others use issues, project trackers, docs, wikis, lab notebooks, or experiment systems. Prefer one source of truth. If more than one system is used, the root `plans.md` should say what belongs in each place and how entries link to commits, pull requests, issues, or external documents.
 
 ## Record Formats
 
@@ -126,7 +127,9 @@ While executing a plan:
 6. Preserve parallel child-plan structure when it exists. Do not collapse several active child plans into one serial root-only task unless the plan records why.
 7. If a new user request would change focus while active plans are unfinished, ask how to handle them unless the user's instruction already makes that clear. Useful options include pausing a plan, moving it to `backlog/`, marking it complete, assigning it to another agent or thread, using a worktree, or using a remote host.
 8. When a plan is superseded, canceled, split, merged, or moved, update the old and new plan files so a reader can follow the chain without searching chat.
-9. Stop only when the plan reaches its acceptance criteria, the user changes direction, or a real blocker needs user input.
+9. Before ending a turn, check whether each associated plan is in the correct state: backlog for work not started or intentionally deferred, active for work still being advanced, and completed for work that satisfies its definition of done. If the repository uses an external issue tracker or document store instead of folders, update that system according to the root plan.
+10. Do not complete a goal, loop, or similar harness-level item while its named plan still appears active. First update `Progress`, `Outcomes and Retrospective`, and any record summary needed for a reader to understand the result. Then move or mark the plan completed.
+11. Stop only when the plan reaches its acceptance criteria, the user changes direction, or a real blocker needs user input.
 
 ## References
 

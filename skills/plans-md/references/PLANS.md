@@ -76,6 +76,10 @@ The root plan chooses the naming convention. Dates, priority labels, and short d
 
 Prefer `backlog/`, `active/`, and `completed/` folders when there are enough child plans to need grouping. The root plan should define what each folder means for the repository and how plans move between them.
 
+The root plan should make state transitions easy. Moving a plan from active to completed should usually be a single directory move, a single status update in an external tracker, or one clearly named edit inside the plan. If completing a plan requires updating several places, the layout is likely creating multiple sources of truth.
+
+A completed plan may usually be reopened by moving it back to active or by creating a follow-up plan that points to it. Because reopening is possible in most systems, agents should keep plan state accurate instead of leaving finished work under active out of caution.
+
 The root plan should also say where planning information lives. If the repository uses issues, project trackers, docs, wikis, lab notebooks, or experiment systems, name those systems and explain what belongs there instead of in repository files. If plans or records are committed, say which files are intended to reach the trunk branch and which files are temporary or ignored.
 
 The root plan should record the project's merge workflow: squash merge, rebase, merge commit, direct pushes to the trunk branch, or another process. This matters because it determines when records, scratch files, generated comparison files, and temporary experiment data should be summarized, ignored, moved elsewhere, or removed.
@@ -155,6 +159,10 @@ Each milestone must be independently verifiable and must incrementally implement
 ## Living Plans And Design Decisions
 
 Plans are living documents. As you make key design decisions, update the plan to record both the decision and the thinking behind it. Record all decisions in `Decision Log`.
+
+Plan state must match reality. A plan in `active/` means there is still work to advance. A plan in `backlog/` means the work is not currently being advanced. A plan in `completed/` means the plan satisfies its definition of done, its progress section reflects the final state, and its outcome is summarized well enough that another reader does not need the chat transcript.
+
+If a harness goal, loop, issue, or tracker item points at a plan, that harness item should not be marked complete until the plan has been moved or marked completed. If the work is finished but the plan state is stale, updating the plan is part of completing the work.
 
 Plans must contain and maintain `Progress`, `Surprises and Discoveries`, `Decision Log`, and `Outcomes and Retrospective`. These are not optional.
 
